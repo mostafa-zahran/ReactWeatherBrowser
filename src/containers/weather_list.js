@@ -4,6 +4,7 @@
 import React, {Component} from 'react'
 import WeatherReducerToWeatherListWire from '../connections/weather_reducer_to_weather_list'
 import Chart from '../components/chart';
+import GoogleMap from '../components/google_map';
 
 export class WeatherList extends Component {
     renderWeather(cityData){
@@ -11,9 +12,10 @@ export class WeatherList extends Component {
         const temps = cityData.list.map((weather)=> weather.main.temp);
         const humidities = cityData.list.map((weather)=> weather.main.humidity);
         const pressures = cityData.list.map((weather)=> weather.main.pressure);
+        const {lat, lon} = cityData.city.coord;
         return(
             <tr key={name}>
-                <td>{name}</td>
+                <td><GoogleMap lat={lat} lng={lon}/></td>
                 <td><Chart data={temps} color="orange" units="K"/></td>
                 <td><Chart data={pressures} color="black" units="hPa"/></td>
                 <td><Chart data={humidities} color="green" units="%"/></td>
